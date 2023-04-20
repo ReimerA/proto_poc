@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+message DataChangedPubMsg {
+   string TurbineId = 1;
+   DateTime DateTime = 2;
+   map<string,string> Values = 3;
+   bool NeedsWritingToRedis = 4;
+   Decimal Amount = 5;
+}
+
+message DateTime {
+  sint64 value = 1; // the offset (in units of the selected scale) from 1970/01/01
+  TimeSpanScale scale = 2; // the scale of the timespan [default = DAYS]
+  DateTimeKind kind = 3; // the kind of date/time being represented [default = UNSPECIFIED]
+  enum TimeSpanScale {
+    DAYS = 0;
+    HOURS = 1;
+    MINUTES = 2;
+    SECONDS = 3;
+    MILLISECONDS = 4;
+	TICKS = 5;
+
+    MINMAX = 15; // dubious
+  }
+  enum DateTimeKind
+  {     
+     // The time represented is not specified as either local time or Coordinated Universal Time (UTC).
+     UNSPECIFIED = 0;
+     // The time represented is UTC.
+     UTC = 1;
+     // The time represented is local time.
+     LOCAL = 2;
+   }
+}
+
+message Decimal {
+  uint64 lo = 1; // the first 64 bits of the underlying value
+  uint32 hi = 2; // the last 32 bis of the underlying value
+  uint32 signScale = 3; // the number of decimal digits (bits 1-16), and the sign (bit 0)
+}
+
+option csharp_namespace = "Google.Protobuf.TestProto";
