@@ -10,7 +10,7 @@ using Google.Protobuf;
 
 	var msgObj = new DataChangedPubMsg() { DateTime=DateTime.Now, Amount=123.456M};
 	Console.WriteLine($"object DateTime ticks for protobuf-net serialization: {msgObj.DateTime.Ticks}");
-	Console.WriteLine($"object Decimal for protobuf-net serialization: {msgObj.DateTime.Ticks}");
+	Console.WriteLine($"object Decimal for protobuf-net serialization: {msgObj.Amount}");
 
 	byte[] msgbytes;
 	using (var ms = new MemoryStream())
